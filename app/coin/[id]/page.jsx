@@ -32,7 +32,12 @@ export default async function CoinDetail({ params }) {
         <img src={coin.image.large} className="w-12 h-12" />
         <h1 className="text-3xl font-bold">{coin.name} ({coin.symbol.toUpperCase()})</h1>
       </div>
-      <p className="text-gray-400 text-sm">{coin.description.en.split('. ')[0]}</p>
+     <p className="text-gray-400 text-sm">
+  {coin.description?.en?.length > 0
+    ? coin.description.en.split('. ')[0]
+    : 'No description available.'}
+</p>
+
 
       <Line data={chartData} options={{ responsive: true }} />
 
