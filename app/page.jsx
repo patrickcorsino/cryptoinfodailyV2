@@ -14,13 +14,13 @@ export default async function Home() {
   ]);
 
   return (
-    <main className="p-4 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-extrabold">Crypto Dashboard</h1>
+    <main className="p-6 max-w-7xl mx-auto space-y-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-extrabold bg-gradient-to-r from-white to-degen bg-clip-text text-transparent">Crypto Dashboard</h1>
         <DegenToggle />
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-3 gap-6">
         <TrendingCoins coins={trending} />
         <FearGreedWidget data={fg} />
         <MarketOverview stats={stats} />
