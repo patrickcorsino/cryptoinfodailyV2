@@ -1,12 +1,32 @@
-export default function MarketOverview({ stats }) {
-  const data = stats.data;
+'use client';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+} from 'chart.js';
+
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+
+export default function SparklineChart({ data }) {
   return (
-    <div className="bg-card p-4 rounded-xl text-center">
-      <h2 className="text-xl font-bold mb-2">Market Overview</h2>
-      <p className="text-sm text-gray-400">Total Market Cap:</p>
-      <p className="text-xl font-bold mb-1">${data.total_market_cap.usd.toLocaleString()}</p>
-      <p className="text-sm text-gray-400">BTC Dominance:</p>
-      <p className="text-xl font-bold">{data.market_cap_percentage.btc.toFixed(2)}%</p>
-    </div>
+    <Line
+      options={{
+        responsive: true,
+        elements: { point: { radius: 0 } },
+        scales: { x: { display: false }, y: { display: false } },
+        plugins: { legend: { display: false } },
+      }}
+      data={{
+        labels: data.map((_, i) => i),
+        datasets: [{
+          data: data,
+          borderColor: '#00ff99',
+          borderWidth: 2,
+        }],
+      }}
+    />
   );
 }
