@@ -10,7 +10,7 @@ export default function CoinTable({ coins }) {
         <p>24h%</p>
         <p>Market Cap</p>
         <p>Volume</p>
-        <p className="text-right">Chart</p>
+        <p className="text-right">7d</p>
       </div>
       {coins.map(coin => <CoinRow key={coin.id} coin={coin} />)}
     </div>
