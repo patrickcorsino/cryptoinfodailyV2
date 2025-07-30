@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import SparklineChart from './SparklineChart';
 
 export default function CoinRow({ coin }) {
   return (
@@ -13,11 +14,10 @@ export default function CoinRow({ coin }) {
           {coin.price_change_percentage_1h_in_currency.toFixed(2)}%
         </p>
         <p className={coin.price_change_percentage_24h_in_currency > 0 ? 'text-green-400' : 'text-red-400'}>
-          {coin.price_change_percentage_24h_in_currency.toFixed(2)}%
-        </p>
+          {coin.price_change_percentage_24h_in_currency.toFixed(2)}%</p>
         <p>${coin.market_cap.toLocaleString()}</p>
         <p>${coin.total_volume.toLocaleString()}</p>
-        <p className="text-right text-xs text-gray-500">7d chart</p>
+        <div className="h-6"><SparklineChart data={coin.sparkline_in_7d.price.slice(-30)} /></div>
       </div>
     </Link>
   );
