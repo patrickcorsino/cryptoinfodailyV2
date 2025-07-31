@@ -22,8 +22,8 @@ export default function Home() {
         getFearGreed(),
         getGlobalStats()
       ]);
-      setCoins(coinsData || []);
-      setTrending(trendingData || []);
+      setCoins(Array.isArray(coinsData) ? coinsData : []);
+      setTrending(Array.isArray(trendingData) ? trendingData : []);
       setFg(fgData || null);
       setStats(statsData || null);
     } catch (error) {
@@ -51,12 +51,12 @@ export default function Home() {
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {trending?.length > 0 && <TrendingCoins coins={trending} />}
+        {Array.isArray(trending) && trending.length > 0 && <TrendingCoins coins={trending} />}
         {fg && <FearGreedWidget data={fg} />}
         {stats && <MarketOverview stats={stats} />}
       </div>
 
-      {coins?.length > 0 && <CoinTable coins={coins} />}
+      {Array.isArray(coins) && coins.length > 0 && <CoinTable coins={coins} />}
     </main>
   );
 }
