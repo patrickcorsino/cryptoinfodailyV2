@@ -37,8 +37,10 @@ export default function Home() {
   useEffect(() => {
     fetchData();
     const interval = setInterval(() => {
-      fetchData();
-    }, 5000);
+      if (document.visibilityState === 'visible') {
+        fetchData();
+      }
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
 
