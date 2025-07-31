@@ -13,6 +13,7 @@ export default function Home() {
   const [trending, setTrending] = useState([]);
   const [fg, setFg] = useState(null);
   const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -28,10 +29,8 @@ export default function Home() {
       setStats(statsData || null);
     } catch (error) {
       console.error('Data fetch error:', error);
-      setCoins([]);
-      setTrending([]);
-      setFg(null);
-      setStats(null);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +55,13 @@ export default function Home() {
         {stats && <MarketOverview stats={stats} />}
       </div>
 
-      {Array.isArray(coins) && coins.length > 0 && <CoinTable coins={coins} />}
+      {loading ? (
+        <p className="text-center text-sm text-gray-400">Loading data...</p>
+      ) : Array.isArray(coins) && coins.length > 0 ? (
+        <CoinTable coins={coins} />
+      ) : (
+        <p className="text-center text-sm text-red-500">No coin data available. Try refreshing in a few seconds.</p>
+      )}
     </main>
   );
 }
