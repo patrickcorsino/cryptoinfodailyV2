@@ -15,23 +15,31 @@ export default function Home() {
   const [stats, setStats] = useState(null);
 
   const fetchData = async () => {
-    const [coinsData, trendingData, fgData, statsData] = await Promise.all([
-      getMarketData(),
-      getTrending(),
-      getFearGreed(),
-      getGlobalStats()
-    ]);
-    setCoins(coinsData);
-    setTrending(trendingData);
-    setFg(fgData);
-    setStats(statsData);
+    try {
+      const [coinsData, trendingData, fgData, statsData] = await Promise.all([
+        getMarketData(),
+        getTrending(),
+        getFearGreed(),
+        getGlobalStats()
+      ]);
+      setCoins(coinsData || []);
+      setTrending(trendingData || []);
+      setFg(fgData || null);
+      setStats(statsData || null);
+    } catch (error) {
+      console.error('Data fetch error:', error);
+      setCoins([]);
+      setTrending([]);
+      setFg(null);
+      setStats(null);
+    }
   };
 
   useEffect(() => {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 5000); // every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -43,12 +51,12 @@ export default function Home() {
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        <TrendingCoins coins={trending} />
-        <FearGreedWidget data={fg} />
-        <MarketOverview stats={stats} />
+        {trending?.length > 0 && <TrendingCoins coins={trending} />}
+        {fg && <FearGreedWidget data={fg} />}
+        {stats && <MarketOverview stats={stats} />}
       </div>
 
-      <CoinTable coins={coins} />
+      {coins?.length > 0 && <CoinTable coins={coins} />}
     </main>
   );
 }
