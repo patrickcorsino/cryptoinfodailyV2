@@ -31,7 +31,7 @@ export default function CoinRow({ coin }) {
         <p className="text-sm">${coin.market_cap.toLocaleString()}</p>
         <p className="text-sm">${coin.total_volume.toLocaleString()}</p>
         <div className="h-6">
-          <SparklineChart data={coin.sparkline_in_7d.price.slice(-30)} color={coin.price_change_percentage_7d_in_currency > 0 ? 'green' : 'red'} />
+          <SparklineChart data={coin.sparkline_in_7d?.price?.slice(-30) || []} color={coin.price_change_percentage_7d_in_currency > 0 ? 'green' : 'red'} />
         </div>
       </div>
     </Link>
