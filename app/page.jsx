@@ -31,7 +31,7 @@ export default function Home() {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 30000); // every 30 seconds
+    }, 5000); // every 5 seconds
     return () => clearInterval(interval);
   }, []);
 
