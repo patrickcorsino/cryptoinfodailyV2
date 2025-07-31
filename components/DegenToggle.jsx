@@ -1,20 +1,20 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function DegenToggle() {
-  const [degen, setDegen] = useState(false);
-
-  useEffect(() => {
-    document.body.classList.toggle('bg-black', !degen);
-    document.body.classList.toggle('bg-green-950', degen);
-  }, [degen]);
+  const [enabled, setEnabled] = useState(false);
 
   return (
-    <button
-      onClick={() => setDegen(!degen)}
-      className="p-2 px-4 rounded-full bg-degen text-black font-bold hover:scale-105 duration-200"
-    >
-      {degen ? 'DEGEN MODE ON' : 'DEGEN MODE OFF'}
-    </button>
+    <div className="flex items-center">
+      <span className="mr-2 text-sm font-medium">Degen Mode</span>
+      <button
+        onClick={() => setEnabled(!enabled)}
+        className={`w-14 h-7 flex items-center bg-gray-600 rounded-full p-1 transition duration-300 ${enabled ? 'bg-degen' : 'bg-gray-500'}`}
+      >
+        <div
+          className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 ${enabled ? 'translate-x-7' : 'translate-x-0'}`}
+        />
+      </button>
+    </div>
   );
 }
