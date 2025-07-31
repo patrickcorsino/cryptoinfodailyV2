@@ -19,6 +19,8 @@ export default function CoinRow({ coin }) {
     return () => clearTimeout(timeout);
   }, [coin?.current_price]);
 
+  if (!coin?.id) return null;
+
   return (
     <Link href={`/coin/${coin?.id}` || '#'}>
       <div className="grid grid-cols-7 gap-2 items-center py-3 px-2 rounded-lg cursor-pointer transition duration-150 shadow-soft hover-highlight">
